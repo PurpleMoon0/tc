@@ -44,7 +44,7 @@ export default {
       SECRET_KEY: "VwFVPoQdB4eOcDANDMhjjX8z0s7Slst5",
       accessToken: "", // 替换成access_token
       apiUrl:
-        "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/text_cls/iptest1?access_token=",
+        "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/text_cls/ipcls?access_token=",
       
       //识别文本饼图配置项
       option: {
@@ -65,28 +65,7 @@ export default {
             name: "Access From",
             type: "pie",
             radius: "50%",
-            data: [
-              //     {
-              //     name: "判决文书",
-              //    value: 0.3202013671398163
-              // },
-              // {
-              //    name: "专利文书",
-              //    value: 0.3157019317150116
-              // },
-              // {
-              //    name: "其他",
-              //    value: 0.14194977283477783
-              // },
-              // {
-              //    name: "知识点",
-              //    value: 0.12779033184051514
-              // },
-              // {
-              //    name: "法律政策",
-              //    value: 0.09435656666755676
-              // }
-            ],
+            data: [],
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,
