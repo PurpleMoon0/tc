@@ -1,6 +1,6 @@
 <template>
   <div class="header-container">
-    <h1 class="h1">网站标题</h1>
+    <h1 class="h1">专利相关文本分类</h1>
   </div>
 </template>
 
