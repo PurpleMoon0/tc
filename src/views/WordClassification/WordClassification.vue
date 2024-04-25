@@ -7,7 +7,7 @@
     >
   </div>
   <div class="main-box">
-    <el-card>
+    <el-card v-loading="loading">
       <el-form
         label-width="auto"
         style="width: 790px"
@@ -39,7 +39,7 @@
         </el-form-item>
       </el-form>
     </el-card>
-    <el-card>
+    <el-card v-loading="loading">
       <div id="main" ref="main" style="width: 790px; height: 580px"></div>
     </el-card>
   </div>
@@ -58,8 +58,8 @@ export default {
         textInput: [{ validator: this.validateInput, trigger: 'change' }],
       },
       classificationResult: "请进行识别",
-      isSending: false,
-      disable: true,
+      disable: true, //识别按钮状态
+      loading: false,  //加载动画
       minLength: 10,
       maxLength: 512,
       API_KEY: "5uaWuAdjR1KDfOoSvxTN24lu",
@@ -102,16 +102,20 @@ export default {
     };
   },
   methods: {
+    //表单校验
     validateInput(rule, value, callback) {
       if (value.length < this.minLength || value.length > this.maxLength) {
         callback(new Error("字符数量须在10到512之间"));
-        this.disable = true;
+        this.disable = true; //设置识别按钮不可用
       } else {
         callback();
-        this.disable = false;
+        this.disable = false; //恢复识别按钮可用
       }
     },
+
+    //文本识别
     async classifyText() {
+      this.loading = true; //加载动画
       this.$refs.ruleFormRef.validate((valid) => {
         if (valid) {
           console.log("submit!");
@@ -120,7 +124,7 @@ export default {
           return false;
         }
       });
-      this.isSending = true; //设置按钮不可用
+
       // 请求token
       axios
         .get(
@@ -152,18 +156,20 @@ export default {
                 this.classificationResult =
                   "识别结果：" + res.data.results[0].name;
                 this.handleDataFilter();
+                this.loading = false; //停止加载动画
               });
           } catch (error) {
             console.error("Error classifying text:", error);
-            this.classificationResult = "error2：" + error;
+            this.classificationResult = "识别失败，错误代码：2。" + error;
+            this.loading = false; //停止加载动画
           }
         })
         .catch((error) => {
           console.error("Error getting access token:", error);
-          this.classificationResult = "error1：" + error;
+          this.classificationResult = "token请求失败，错误代码：1。" + error;
+          this.loading = false; //停止加载动画
         });
 
-      this.isSending = false; //恢复按钮可用
     },
     //清除输入框
     handleRmove() {
