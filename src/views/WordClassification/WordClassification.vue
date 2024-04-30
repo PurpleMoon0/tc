@@ -19,7 +19,7 @@
           <el-input
             type="textarea"
             v-model="form.textInput"
-            placeholder="请输入文本，不少于10个字符，不超过512个字符"
+            placeholder="请输入文本，不少于10个字符，不超过4096个字符"
             :rows="20"
             style="width: 600px"
           ></el-input>
@@ -61,7 +61,7 @@ export default {
       disable: true, //识别按钮状态
       loading: false,  //加载动画
       minLength: 10,
-      maxLength: 512,
+      maxLength: 4096,
       API_KEY: "5uaWuAdjR1KDfOoSvxTN24lu",
       SECRET_KEY: "VwFVPoQdB4eOcDANDMhjjX8z0s7Slst5",
       accessToken: "", // 替换成access_token
@@ -105,7 +105,7 @@ export default {
     //表单校验
     validateInput(rule, value, callback) {
       if (value.length < this.minLength || value.length > this.maxLength) {
-        callback(new Error("字符数量须在10到512之间"));
+        callback(new Error("字符数量须在10到4096之间"));
         this.disable = true; //设置识别按钮不可用
       } else {
         callback();
